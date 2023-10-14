@@ -1,8 +1,16 @@
-#pragma once
+#ifndef EIGENWRAPPER_H
+#define EIGENWRAPPER_H
+#define DLLExport   __declspec(dllexport)
+
 extern "C"
 {
     // Functions to create, delete and manipulate matrices.
-    void* CreateMatrix(int rows, int cols, double* data);
-    void DeleteMatrix(void* matrixPtr);
-    void MultiplyMatrices(void* matrix1, void* matrix2, double* result);
+    DLLExport void* CreateMatrix(int rows, int cols, float* data);
+    DLLExport void DeleteMatrix(void* matrixPtr);
+    DLLExport void MultiplyMatrices(void* matrix1, void* matrix2, float* result);
+    DLLExport int GetRowCount(void* matrixPtr);
+    DLLExport int GetColumnCount(void* matrixPtr);
+    DLLExport float GetElement(void* matrixPtr, int row, int col);
 }
+
+#endif // !EIGENWRAPPER_H
