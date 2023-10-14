@@ -37,4 +37,21 @@ extern "C" {
         Eigen::MatrixXf* mat = static_cast<Eigen::MatrixXf*>(matrixPtr);
         return (*mat)(row, col);
     }
+
+    DLLExport void SetElement(void* matrixPtr, int row, int col, float newEntry) {
+        Eigen::MatrixXf* mat = static_cast<Eigen::MatrixXf*>(matrixPtr);
+        (*mat)(row, col) = newEntry;
+    }
+
+    DLLExport void Transpose(void* matrixPtr, float* result) {
+        Eigen::MatrixXf* mat = static_cast<Eigen::MatrixXf*>(matrixPtr);
+        Eigen::MatrixXf transposedMat = mat->transpose();
+        std::memcpy(result, transposedMat.data(), sizeof(float) * transposedMat.rows() * transposedMat.cols());
+    }
+
+
+    DLLExport void TransposeInPlace(void* matrixPtr) {
+        Eigen::MatrixXf* mat = static_cast<Eigen::MatrixXf*>(matrixPtr);
+        mat->transposeInPlace();
+    }
 }

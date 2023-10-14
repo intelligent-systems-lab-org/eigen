@@ -11,6 +11,9 @@ extern "C"
     DLLExport int GetRowCount(void* matrixPtr);
     DLLExport int GetColumnCount(void* matrixPtr);
     DLLExport float GetElement(void* matrixPtr, int row, int col);
+    DLLExport void SetElement(void* matrixPtr, int row, int col, float newEntry);
+    DLLExport void Transpose(void* matrixPtr, float* result);
+    DLLExport void TransposeInPlace(void* matrixPtr);
 }
 
 #endif // !EIGENWRAPPER_H
