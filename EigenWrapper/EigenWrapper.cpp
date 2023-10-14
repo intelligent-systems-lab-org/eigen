@@ -4,10 +4,24 @@
 using namespace Eigen;
 
 extern "C" {
-    DLLExport void* CreateMatrix(int rows, int cols, float* data)
+    //DLLExport void* CreateMatrix(int rows, int cols, float* data)
+    //{
+    //    MatrixXf* mat = new MatrixXf(rows, cols);
+    //    std::memcpy(mat->data(), data, sizeof(float) * rows * cols);
+    //    return mat;
+    //}
+
+    DLLExport void* CreateMatrix(int rows, int cols, float** data)
     {
         MatrixXf* mat = new MatrixXf(rows, cols);
-        std::memcpy(mat->data(), data, sizeof(float) * rows * cols);
+
+        for (int r = 0; r < rows; ++r)
+        {
+            for (int c = 0; c < cols; ++c)
+            {
+                (*mat)(r, c) = data[r][c];
+            }
+        }
         return mat;
     }
 

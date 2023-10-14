@@ -5,7 +5,7 @@
 extern "C"
 {
     // Functions to create, delete and manipulate matrices.
-    DLLExport void* CreateMatrix(int rows, int cols, float* data);
+    DLLExport void* CreateMatrix(int rows, int cols, float** data);
     DLLExport void DeleteMatrix(void* matrixPtr);
     DLLExport void MultiplyMatrices(void* matrix1, void* matrix2, float* result);
     DLLExport int GetRowCount(void* matrixPtr);
