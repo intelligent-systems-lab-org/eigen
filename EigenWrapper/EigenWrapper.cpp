@@ -26,6 +26,24 @@ extern "C" {
         delete static_cast<MatrixXf*>(matrixPtr);
     }
 
+    DLLExport void AddMatrices(void* matrix1, void* matrix2, float* result) 
+    {
+        MatrixXf& mat1 = *static_cast<MatrixXf*>(matrix1);
+        MatrixXf& mat2 = *static_cast<MatrixXf*>(matrix2);
+
+        MatrixXf resultMat = mat1 + mat2;
+        std::memcpy(result, resultMat.data(), sizeof(float) * resultMat.rows() * resultMat.cols());
+    }
+
+    DLLExport void SubtractMatrices(void* matrix1, void* matrix2, float* result)
+    {
+        MatrixXf& mat1 = *static_cast<MatrixXf*>(matrix1);
+        MatrixXf& mat2 = *static_cast<MatrixXf*>(matrix2);
+
+        MatrixXf resultMat = mat1 - mat2;
+        std::memcpy(result, resultMat.data(), sizeof(float) * resultMat.rows() * resultMat.cols());
+    }
+
     DLLExport void MultiplyMatrices(void* matrix1, void* matrix2, float* result)
     {
         MatrixXf& mat1 = *static_cast<MatrixXf*>(matrix1);
@@ -64,5 +82,19 @@ extern "C" {
     DLLExport void TransposeInPlace(void* matrixPtr) {
         MatrixXf* mat = static_cast<MatrixXf*>(matrixPtr);
         mat->transposeInPlace();
+    }
+
+    DLLExport void* CreateIdentityMatrix(int size)
+    {
+        MatrixXf* identity = new MatrixXf(MatrixXf::Identity(size, size));
+        return static_cast<void*>(identity);
+    }
+
+    DLLExport bool AreMatricesEqual(void* matrix1, void* matrix2)
+    {
+        MatrixXf& mat1 = *static_cast<MatrixXf*>(matrix1);
+        MatrixXf& mat2 = *static_cast<MatrixXf*>(matrix2);
+
+        return mat1.isApprox(mat2);
     }
 }
