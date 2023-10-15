@@ -98,5 +98,27 @@ namespace EigenTest
             delete matrix3;
         }
 
+        TEST_METHOD(TestGetInverse)
+        {
+            // Arrange
+            int rows = 2;
+            int cols = 2;
+            float data[] = { 1, 2, 3, 4 };
+            MatrixXf* matrix = (MatrixXf*)CreateMatrix(rows, cols, data, true);
+            float result[4];
+
+            // Act
+            GetInverse(matrix, result);
+
+            // Assert
+            float tol = 1e-5f;
+            Assert::AreEqual(-2.0f, result[0], tol);
+            Assert::AreEqual(1.5f, result[1], tol);
+            Assert::AreEqual(1.0f, result[2], tol);
+            Assert::AreEqual(-0.5f, result[3], tol);
+
+            // Cleanup
+            delete matrix;
+        }
 	};
 }

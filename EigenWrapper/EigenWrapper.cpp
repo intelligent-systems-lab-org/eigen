@@ -1,5 +1,5 @@
 #include "EigenWrapper.h"
-#include <Eigen/Core>
+#include <Eigen/Dense>
 
 using namespace Eigen;
 
@@ -97,4 +97,13 @@ extern "C" {
 
         return mat1.isApprox(mat2);
     }
+
+    DLLExport void GetInverse(void* matrix, float* result)
+    {
+        MatrixXf& mat = *static_cast<MatrixXf*>(matrix);
+        MatrixXf inversedMat = mat.inverse();
+
+        std::memcpy(result, inversedMat.data(), sizeof(float) * inversedMat.rows() * inversedMat.cols());
+    }
+
 }
