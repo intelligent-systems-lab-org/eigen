@@ -106,4 +106,10 @@ extern "C" {
         std::memcpy(result, inversedMat.data(), sizeof(float) * inversedMat.rows() * inversedMat.cols());
     }
 
+    DLLExport void MultiplyByScalar(void* matrixPtr, float scalar, float* result)
+    {
+        MatrixXf& mat = *static_cast<MatrixXf*>(matrixPtr);
+        MatrixXf multipliedMat = mat * scalar;
+        std::memcpy(result, multipliedMat.data(), sizeof(float) * multipliedMat.rows() * multipliedMat.cols());
+    }
 }

@@ -19,6 +19,7 @@ extern "C"
     DLLExport void* CreateIdentityMatrix(int size);
     DLLExport bool AreMatricesEqual(void* matrix1, void* matrix2);
     DLLExport void GetInverse(void* matrix, float* result);
+    DLLExport void MultiplyByScalar(void* matrix, float scalar, float* result);
 }
 
 #endif // !EIGENWRAPPER_H

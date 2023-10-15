@@ -120,5 +120,33 @@ namespace EigenTest
             // Cleanup
             delete matrix;
         }
+
+        TEST_METHOD(TestMultiplyMatrixWithScalar)
+        {
+            // Arrange
+            int rows = 2;
+            int cols = 2;
+            float scalar = 3.0f;
+            float data[] = { 1, 2, 3, 4 };
+            MatrixXf* matrix = (MatrixXf*)CreateMatrix(rows, cols, data, false);
+            float result[4];
+
+            // Act
+            MultiplyByScalar(matrix, scalar, result);
+
+            // Assert
+            float tol = 1e-5f;
+            // 1*3
+            Assert::AreEqual(3.0f, result[0], tol);
+            // 2*3
+            Assert::AreEqual(6.0f, result[1], tol);
+            // 3*3
+            Assert::AreEqual(9.0f, result[2], tol);
+            // 4*3
+            Assert::AreEqual(12.0f, result[3], tol);
+
+            // Cleanup
+            delete matrix;
+        }
 	};
 }
