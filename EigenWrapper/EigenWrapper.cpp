@@ -4,26 +4,22 @@
 using namespace Eigen;
 
 extern "C" {
-    //DLLExport void* CreateMatrix(int rows, int cols, float* data)
-    //{
-    //    MatrixXf* mat = new MatrixXf(rows, cols);
-    //    std::memcpy(mat->data(), data, sizeof(float) * rows * cols);
-    //    return mat;
-    //}
-
-    DLLExport void* CreateMatrix(int rows, int cols, float** data)
+    DLLExport void* CreateMatrix(int rows, int cols, float* data, bool rowMajor = false)
     {
-        MatrixXf* mat = new MatrixXf(rows, cols);
-
-        for (int r = 0; r < rows; ++r)
+        if (rowMajor)
         {
-            for (int c = 0; c < cols; ++c)
-            {
-                (*mat)(r, c) = data[r][c];
-            }
+            auto tempMat = Map<Matrix<float, Dynamic, Dynamic, RowMajor>>(data, rows, cols);
+            MatrixXf* mat = new MatrixXf(tempMat);
+            return mat;
         }
-        return mat;
+        else
+        {
+            MatrixXf* mat = new MatrixXf(rows, cols);
+            std::memcpy(mat->data(), data, sizeof(float) * rows * cols);
+            return mat;
+        }
     }
+
 
     DLLExport void DeleteMatrix(void* matrixPtr)
     {
