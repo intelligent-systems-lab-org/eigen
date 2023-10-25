@@ -98,6 +98,27 @@ namespace EigenTest
             delete matrix3;
         }
 
+        TEST_METHOD(TestGetDeterminant)
+        {
+            // Arrange
+            int rows = 2;
+            int cols = 2;
+            float data[] = { 1, 2, 3, 4 };
+            MatrixXf* matrix = (MatrixXf*)CreateMatrix(rows, cols, data, true);
+
+            // Act
+            float determinant = GetDeterminant(matrix);
+
+            // Assert
+            // Determinant of [1, 2; 3, 4] is (1*4 - 2*3) = -2
+            float expectedDeterminant = -2.0f;
+            float tol = 1e-5f;
+            Assert::AreEqual(expectedDeterminant, determinant, tol);
+
+            // Cleanup
+            delete matrix;
+        }
+
         TEST_METHOD(TestGetInverse)
         {
             // Arrange

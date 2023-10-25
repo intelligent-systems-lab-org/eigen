@@ -98,6 +98,13 @@ extern "C" {
         return mat1.isApprox(mat2);
     }
 
+    DLLExport float GetDeterminant(void* matrixPtr)
+    {
+        MatrixXf& mat = *static_cast<MatrixXf*>(matrixPtr);
+        return mat.determinant();
+    }
+
+
     DLLExport void GetInverse(void* matrix, float* result)
     {
         MatrixXf& mat = *static_cast<MatrixXf*>(matrix);

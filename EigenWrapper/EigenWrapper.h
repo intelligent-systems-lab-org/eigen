@@ -18,6 +18,7 @@ extern "C"
     DLLExport void TransposeInPlace(void* matrixPtr);
     DLLExport void* CreateIdentityMatrix(int size);
     DLLExport bool AreMatricesEqual(void* matrix1, void* matrix2);
+    DLLExport float GetDeterminant(void* matrixPtr);
     DLLExport void GetInverse(void* matrix, float* result);
     DLLExport void MultiplyByScalar(void* matrix, float scalar, float* result);
 }
