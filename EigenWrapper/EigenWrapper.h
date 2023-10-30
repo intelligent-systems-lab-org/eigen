@@ -21,6 +21,7 @@ extern "C"
     DLLExport float GetDeterminant(void* matrixPtr);
     DLLExport void GetInverse(void* matrix, float* result);
     DLLExport void MultiplyByScalar(void* matrix, float scalar, float* result);
+    DLLExport void* CreateDiagonalMatrix(float* diagonalEntries, int size);
 }
 
 #endif // !EIGENWRAPPER_H

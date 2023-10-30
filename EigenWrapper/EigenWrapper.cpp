@@ -119,4 +119,16 @@ extern "C" {
         MatrixXf multipliedMat = mat * scalar;
         std::memcpy(result, multipliedMat.data(), sizeof(float) * multipliedMat.rows() * multipliedMat.cols());
     }
+
+    DLLExport void* CreateDiagonalMatrix(float* diagonalEntries, int size)
+    {
+        // Create a vector from the diagonal entries
+        VectorXf diagonalVector = Map<VectorXf>(diagonalEntries, size);
+
+        // Use Eigen's built-in function to create a diagonal matrix
+        MatrixXf* diagMatrix = new MatrixXf(diagonalVector.asDiagonal());
+
+        return diagMatrix;
+    }
+
 }

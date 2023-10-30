@@ -169,5 +169,35 @@ namespace EigenTest
             // Cleanup
             delete matrix;
         }
+
+        TEST_METHOD(TestCreateDiagonalMatrix)
+        {
+            // Arrange
+            float diagonalEntries[] = { 1, 2, 3, 4 };
+            int size = sizeof(diagonalEntries) / sizeof(diagonalEntries[0]);
+
+            // Act
+            MatrixXf* diagonalMatrix = (MatrixXf*)CreateDiagonalMatrix(diagonalEntries, size);
+
+            // Assert
+            float tol = 1e-5f;
+            for (int i = 0; i < size; i++)
+            {
+                // Check diagonal elements
+                Assert::AreEqual(diagonalEntries[i], (*diagonalMatrix)(i, i), tol);
+
+                // Check non-diagonal elements
+                for (int j = 0; j < size; j++)
+                {
+                    if (i != j)
+                    {
+                        Assert::AreEqual(0.0f, (*diagonalMatrix)(i, j), tol);
+                    }
+                }
+            }
+
+            // Cleanup
+            delete diagonalMatrix;
+        }
 	};
 }
